@@ -1,13 +1,10 @@
 using System.Linq;
-using Content.Server.Atmos.Components;
-using Content.Server.NodeContainer.Nodes;
-using Content.Server.Popups;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Construction.Components;
 using Content.Shared.NodeContainer;
+using Content.Shared.Popups;
 using JetBrains.Annotations;
-using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
 
 namespace Content.Server.Atmos.EntitySystems;
@@ -17,9 +14,9 @@ namespace Content.Server.Atmos.EntitySystems;
 /// </summary>
 public sealed partial class PipeRestrictOverlapSystem : EntitySystem
 {
-    [Dependency] private MapSystem _map = default!;
-    [Dependency] private PopupSystem _popup = default!;
-    [Dependency] private TransformSystem _xform = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedTransformSystem _xform = default!;
     [Dependency] private EntityQuery<NodeContainerComponent> _nodeContainerQuery = default!;
 
     private readonly List<EntityUid> _anchoredEntities = new();

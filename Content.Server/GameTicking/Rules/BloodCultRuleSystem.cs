@@ -162,33 +162,33 @@ public sealed class BloodCultRuleSystem : GameRuleSystem<BloodCultRuleComponent>
 		}
 	}
 
-	[Dependency] private readonly SharedAudioSystem _audio = default!;
-	[Dependency] private readonly AntagSelectionSystem _antag = default!;
-	[Dependency] private readonly MindSystem _mind = default!;
-	[Dependency] private readonly RoleSystem _role = default!;
-	[Dependency] private readonly RejuvenateSystem _rejuvenate = default!;
-	[Dependency] private readonly PopupSystem _popupSystem = default!;
-	[Dependency] private readonly IRobustRandom _random = default!;
-	[Dependency] private readonly IGameTiming _timing = default!;
-	[Dependency] private readonly GameTicker _gameTicker = default!;
-	[Dependency] private readonly IPlayerManager _playerManager = default!;
-	[Dependency] private readonly ChatSystem _chat = default!;
-	[Dependency] private readonly SharedPhysicsSystem _physics = default!;
-	[Dependency] private readonly SharedJobSystem _jobs = default!;
-	[Dependency] private readonly RoundEndSystem _roundEnd = default!;
-	[Dependency] private readonly MobStateSystem _mobSystem = default!;
-	[Dependency] private readonly IChatManager _chatManager = default!;
-	[Dependency] private readonly AppearanceSystem _appearance = default!;
-	[Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-	[Dependency] private readonly IAdminLogManager _adminLogger = default!;
-	[Dependency] private readonly IConsoleHost _consoleHost = default!;
-	//[Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-	[Dependency] private readonly BloodCultMindShieldSystem _mindShield = default!;
-	[Dependency] private readonly SleepingSystem _sleeping = default!;
-	[Dependency] private readonly IPrototypeManager _proto = default!;
-	[Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-	[Dependency] private readonly SharedPointLightSystem _pointLight = default!;
-	[Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
+	[Dependency] private SharedAudioSystem _audio = default!;
+	[Dependency] private AntagSelectionSystem _antag = default!;
+	[Dependency] private MindSystem _mind = default!;
+	[Dependency] private RoleSystem _role = default!;
+	[Dependency] private RejuvenateSystem _rejuvenate = default!;
+	[Dependency] private PopupSystem _popupSystem = default!;
+	[Dependency] private IRobustRandom _random = default!;
+	[Dependency] private IGameTiming _timing = default!;
+	[Dependency] private GameTicker _gameTicker = default!;
+	[Dependency] private IPlayerManager _playerManager = default!;
+	[Dependency] private ChatSystem _chat = default!;
+	[Dependency] private SharedPhysicsSystem _physics = default!;
+	[Dependency] private SharedJobSystem _jobs = default!;
+	[Dependency] private RoundEndSystem _roundEnd = default!;
+	[Dependency] private MobStateSystem _mobSystem = default!;
+	[Dependency] private IChatManager _chatManager = default!;
+	[Dependency] private AppearanceSystem _appearance = default!;
+	[Dependency] private NpcFactionSystem _npcFaction = default!;
+	[Dependency] private IAdminLogManager _adminLogger = default!;
+	[Dependency] private IConsoleHost _consoleHost = default!;
+	//[Dependency] private SharedTransformSystem _transformSystem = default!;
+	[Dependency] private BloodCultMindShieldSystem _mindShield = default!;
+	[Dependency] private SleepingSystem _sleeping = default!;
+	[Dependency] private IPrototypeManager _proto = default!;
+	[Dependency] private ActionContainerSystem _actionContainer = default!;
+	[Dependency] private SharedPointLightSystem _pointLight = default!;
+	[Dependency] private SharedUserInterfaceSystem _uiSystem = default!;
 
 	public readonly string CultComponentId = "BloodCultist";
 

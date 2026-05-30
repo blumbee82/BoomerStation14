@@ -12,10 +12,10 @@ namespace Content.Server.BloodCult.EntitySystems;
 /// Used by cult daggers to regenerate their Edge Essentia over time.
 /// Maybe a bit too fancy. But I wanted it to be more interesting than just always it inject the same amount.
 /// </summary>
-public sealed class ReagentAutoRefillSystem : EntitySystem
+public sealed partial class ReagentAutoRefillSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
 
     private TimeSpan _nextUpdate = TimeSpan.Zero;
 
@@ -54,7 +54,7 @@ public sealed class ReagentAutoRefillSystem : EntitySystem
 
             // Calculate how much to refill (1 second worth)
             var amountToAdd = FixedPoint2.New(refill.RefillRate);
-            
+
             // Don't exceed the maximum
             var newTotal = currentAmount + amountToAdd;
             if (newTotal.Float() > refill.MaxAmount)
