@@ -50,6 +50,10 @@ namespace Content.Server.Database
         public DbSet<BanTemplate> BanTemplate { get; set; } = null!;
         public DbSet<IPIntelCache> IPIntelCache { get; set; } = null!;
 
+        // Monkestation Begin
+        public DbSet<MonkestationRoleTimeExemption> MonkestationRoleTimeExemptions { get; set; } = default!;
+        // Monkestation End
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Preference>()
@@ -57,15 +61,15 @@ namespace Content.Server.Database
                 .IsUnique();
 
             modelBuilder.Entity<Profile>()
-                .HasIndex(p => new {p.Slot, PrefsId = p.PreferenceId})
+                .HasIndex(p => new { p.Slot, PrefsId = p.PreferenceId })
                 .IsUnique();
 
             modelBuilder.Entity<Antag>()
-                .HasIndex(p => new {HumanoidProfileId = p.ProfileId, p.AntagName})
+                .HasIndex(p => new { HumanoidProfileId = p.ProfileId, p.AntagName })
                 .IsUnique();
 
             modelBuilder.Entity<Trait>()
-                .HasIndex(p => new {HumanoidProfileId = p.ProfileId, p.TraitName})
+                .HasIndex(p => new { HumanoidProfileId = p.ProfileId, p.TraitName })
                 .IsUnique();
 
             modelBuilder.Entity<ProfileRoleLoadout>()
@@ -113,15 +117,15 @@ namespace Content.Server.Database
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<AdminFlag>()
-                .HasIndex(f => new {f.Flag, f.AdminId})
+                .HasIndex(f => new { f.Flag, f.AdminId })
                 .IsUnique();
 
             modelBuilder.Entity<AdminRankFlag>()
-                .HasIndex(f => new {f.Flag, f.AdminRankId})
+                .HasIndex(f => new { f.Flag, f.AdminRankId })
                 .IsUnique();
 
             modelBuilder.Entity<AdminLog>()
-                .HasKey(log => new {log.RoundId, log.Id});
+                .HasKey(log => new { log.RoundId, log.Id });
 
             modelBuilder.Entity<AdminLog>()
                 .Property(log => log.Id);
@@ -146,12 +150,13 @@ namespace Content.Server.Database
                 .HasIndex(round => round.StartDate);
 
             modelBuilder.Entity<AdminLogPlayer>()
-                .HasKey(logPlayer => new {logPlayer.RoundId, logPlayer.LogId, logPlayer.PlayerUserId});
+                .HasKey(logPlayer => new { logPlayer.RoundId, logPlayer.LogId, logPlayer.PlayerUserId });
 
             // Ban exemption can't have flags 0 since that wouldn't exempt anything.
             // The row should be removed if setting to 0.
-            modelBuilder.Entity<ServerBanExemption>().ToTable(t =>
-                t.HasCheckConstraint("FlagsNotZero", "flags != 0"));
+            modelBuilder.Entity<ServerBanExemption>()
+                .ToTable(t =>
+                    t.HasCheckConstraint("FlagsNotZero", "flags != 0"));
 
             modelBuilder.Entity<Player>()
                 .HasIndex(p => p.UserId)
@@ -263,9 +268,10 @@ namespace Content.Server.Database
                 .OnDelete(DeleteBehavior.SetNull);
 
             // A message cannot be "dismissed" without also being "seen".
-            modelBuilder.Entity<AdminMessage>().ToTable(t =>
-                t.HasCheckConstraint("NotDismissedAndSeen",
-                    "NOT dismissed OR seen"));
+            modelBuilder.Entity<AdminMessage>()
+                .ToTable(t =>
+                    t.HasCheckConstraint("NotDismissedAndSeen",
+                        "NOT dismissed OR seen"));
 
             modelBuilder.Entity<RoleWhitelist>()
                 .HasOne(w => w.Player)
@@ -296,6 +302,11 @@ namespace Content.Server.Database
                 .HasDefaultValue(HwidType.Legacy);
 
             ModelBan.OnModelCreating(modelBuilder);
+
+            // Monkestation Begin
+            modelBuilder.Entity<MonkestationRoleTimeExemption>()
+                .HasIndex(e => e.UserId);
+            // Monkestation End
         }
 
         public virtual IQueryable<AdminLog> SearchLogs(IQueryable<AdminLog> query, string searchText)
@@ -747,6 +758,7 @@ namespace Content.Server.Database
         Whitelist = 1,
         Full = 2,
         Panic = 3,
+
         /*
          * If baby jail is removed, please reserve this value for as long as can reasonably be done to prevent causing ambiguity in connection denial reasons.
          * Reservation by commenting out the value is likely sufficient for this purpose, but may impact projects which depend on SS14 like SS14.Admin.
@@ -754,8 +766,10 @@ namespace Content.Server.Database
          * Edit: It has
          */
         BabyJail = 4,
+
         /// Results from rejected connections with external API checking tools
         IPChecks = 5,
+
         /// Results from rejected connections who are authenticated but have no modern hwid associated with them.
         NoHwid = 6
     }
@@ -830,7 +844,8 @@ namespace Content.Server.Database
     [Index(nameof(PlayerUserId))]
     public class AdminNote : IAdminRemarksCommon
     {
-        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [ForeignKey("Round")] public int? RoundId { get; set; }
         public Round? Round { get; set; }
@@ -864,7 +879,8 @@ namespace Content.Server.Database
     [Index(nameof(PlayerUserId))]
     public class AdminWatchlist : IAdminRemarksCommon
     {
-        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [ForeignKey("Round")] public int? RoundId { get; set; }
         public Round? Round { get; set; }
@@ -895,13 +911,15 @@ namespace Content.Server.Database
     [Index(nameof(PlayerUserId))]
     public class AdminMessage : IAdminRemarksCommon
     {
-        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [ForeignKey("Round")] public int? RoundId { get; set; }
         public Round? Round { get; set; }
 
         [ForeignKey("Player")]
         public Guid? PlayerUserId { get; set; }
+
         public Player? Player { get; set; }
         [Required] public TimeSpan PlaytimeAtNote { get; set; }
 
@@ -939,6 +957,7 @@ namespace Content.Server.Database
     {
         [Required, ForeignKey("Player")]
         public Guid PlayerUserId { get; set; }
+
         public Player Player { get; set; } = default!;
 
         [Required]
@@ -1054,4 +1073,29 @@ namespace Content.Server.Database
         /// </summary>
         public float Score { get; set; }
     }
+
+    // Begin Monkestation
+    /// <summary>
+    /// Exemptions for play time for a role for a player
+    /// </summary>
+    public class MonkestationRoleTimeExemption
+    {
+        public int Id { get; set; }
+
+        /// <summary>
+        /// What type of role is being exempted. For example <c>Job</c> or <c>Antag</c>.
+        /// </summary>
+        public required string RoleType { get; set; }
+
+        /// <summary>
+        /// The ID of the role being exempted. This is probably something like a prototype.
+        /// </summary>
+        public required string RoleId { get; set; }
+
+        /// <summary>
+        /// The userid this exemption applies to
+        /// </summary>
+        public required Guid UserId { get; set; }
+    }
+    // End Monkestation
 }
