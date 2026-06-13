@@ -1,0 +1,9 @@
+- type: jobRequirementOverride
+  id: MSLaunchReduced
+  jobs:
+    SalvageSpecialist:
+    StationEngineer:
+    MedicalDoctor:
+    Paramedic:
+    Scientist:
+    Mime:
