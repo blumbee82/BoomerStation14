@@ -1,19 +1,23 @@
+using Content.Shared._Funkystation.Clothing.Components;
+using Content.Shared.Actions;
+using Content.Shared.Actions.Components;
 using Content.Shared.Database;
-using Content.Shared._Funkystation.Clothing.Components; // Funky change
 using Content.Shared.Eye;
 using Content.Shared.Hands;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory.Events;
-using Content.Shared.Actions; // Funky change
-using Content.Shared.Actions.Components; // Funky change
-using Robust.Shared.Audio.Systems; // Funky change
-using Robust.Shared.GameStates;
 using Content.Shared.Timing;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.GameStates;
 using Robust.Shared.Network;
+using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
+// Funky change
+// Funky change
+// Funky change
+// Funky change
 
 namespace Content.Shared.SubFloor;
 
@@ -180,7 +184,7 @@ public abstract partial class SharedTrayScannerSystem : EntitySystem
         if (args.Handled)
             return;
 
-        ToggleScanner(uid, args.Performer, scanner);
+        ToggleScanner((uid, scanner), args.Performer);
         args.Handled = true;
     }
 
@@ -189,59 +193,45 @@ public abstract partial class SharedTrayScannerSystem : EntitySystem
         if (args.Handled || !args.Complex)
             return;
 
-        ToggleScanner(uid, args.User, scanner); // Funky change
+        ToggleScanner(ent, args.User); // Funky change
         args.Handled = true;
     }
 
     // Funky change
-    private void ToggleScanner(EntityUid uid, EntityUid user, TrayScannerComponent scanner)
+    private void ToggleScanner(Entity<TrayScannerComponent> ent, EntityUid user)
     {
-        var isEnabled = !scanner.Enabled;
-        SetScannerEnabled(uid, isEnabled, scanner);
+        var isEnabled = !ent.Comp.Enabled;
+        SetScannerEnabled(ent, isEnabled);
 
-        var sound = isEnabled ? scanner.SoundOn : scanner.SoundOff;
-        _audio.PlayPredicted(sound, uid, user);
+        var sound = isEnabled ? ent.Comp.SoundOn : ent.Comp.SoundOff;
+        _audio.PlayPredicted(sound, ent, user);
     }
 
-    private void SetScannerEnabled(EntityUid uid, bool enabled, TrayScannerComponent? scanner = null)
+    private void SetScannerEnabled(Entity<TrayScannerComponent> ent, bool enabled)
     {
-        if (!Resolve(uid, ref scanner) || scanner.Enabled == enabled)
+        if (ent.Comp.Enabled == enabled)
             return;
 
-        scanner.Enabled = enabled;
-        Dirty(uid, scanner);
+        ent.Comp.Enabled = enabled;
+        Dirty(ent);
 
         // Funky change
-        if (TryComp(uid, out GoggleShaderComponent? goggleShader))
+        if (TryComp(ent, out GoggleShaderComponent? goggleShader))
         {
             goggleShader.Enabled = enabled;
-            Dirty(uid, goggleShader);
+            Dirty(ent, goggleShader);
 
             var ev = new GoggleShaderToggledEvent(enabled);
-            RaiseLocalEvent(uid, ref ev);
+            RaiseLocalEvent(ent, ref ev);
         }
 
         // We don't remove from _activeScanners on disabled, because the update function will handle that, as well as
         // managing the revealed subfloor entities
 
-        if (TryComp(uid, out AppearanceComponent? appearance))
+        if (TryComp(ent, out AppearanceComponent? appearance))
         {
-            _appearance.SetData(uid, TrayScannerVisual.Visual, scanner.Enabled ? TrayScannerVisual.On : TrayScannerVisual.Off, appearance);
+            _appearance.SetData(ent, TrayScannerVisual.Visual, ent.Comp.Enabled ? TrayScannerVisual.On : TrayScannerVisual.Off, appearance);
         }
-    }
-
-    private void OnTrayScannerGetState(EntityUid uid, TrayScannerComponent scanner, ref ComponentGetState args)
-    {
-        args.State = new TrayScannerState(scanner.Enabled, scanner.Range);
-    }
-
-    private void OnTrayScannerHandleState(EntityUid uid, TrayScannerComponent scanner, ref ComponentHandleState args)
-    {
-        if (args.Current is not TrayScannerState state)
-            return;
-
-        scanner.Range = state.Range;
-        SetScannerEnabled(uid, state.Enabled, scanner);
     }
 }
 
