@@ -84,7 +84,7 @@ namespace Content.Server.Entry
         [Dependency] private ServerFeedbackManager _feedbackManager = null!;
 
         // Monkestation start
-        [Dependency] private readonly RoleTimeExemptionManager _roleTimeExemptionManager = default!;
+        [Dependency] private RoleTimeExemptionManager _roleTimeExemptionManager = default!;
         // Monkestation end
 
         public override void PreInit()

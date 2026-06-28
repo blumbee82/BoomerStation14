@@ -29,9 +29,6 @@ namespace Content.Server._Funkystation.Stains
         private const float StainBurnRatePerSecond = 0.2f;
         private float _stainStackMultiplier = 1.0f;
 
-        // Fraction of a stain's flammable reagents consumed per second while on fire
-        private const float StainBurnRatePerSecond = 0.2f;
-
         public override void Initialize()
         {
             base.Initialize();
