@@ -24,4 +24,18 @@ Entries:
   id: 3
   time: '2026-06-22T23:00:00.0000000+00:00'
   url: https://github.com/Monkestation/forky-station/pull/25
+- author: adamsogm
+  changes:
+  - message: Added a bunch of lobby music
+    type: Add
+  id: 4
+  time: '2026-06-30T02:45:00.0000000+00:00'
+  url: https://github.com/Monkestation/forky-station/pull/33
+- author: adamsogm
+  changes:
+  - message: Removed vox from the guidebook
+    type: Remove
+  id: 5
+  time: '2026-06-30T02:45:00.0000000+00:00'
+  url: https://github.com/Monkestation/forky-station/pull/34
 Order: 1
