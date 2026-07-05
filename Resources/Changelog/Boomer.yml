@@ -73,4 +73,11 @@ Entries:
   id: 10
   time: '2026-07-05T16:30:00.0000000+00:00'
   url: https://github.com/Monkestation/forky-station/pull/42
+- author: adamsong
+  changes:
+  - message: Reduced font size of loud radio
+    type: Tweak
+  id: 11
+  time: '2026-07-05T22:15:00.0000000+00:00'
+  url: https://github.com/Monkestation/forky-station/pull/42
 Order: 1
