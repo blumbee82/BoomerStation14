@@ -80,4 +80,18 @@ Entries:
   id: 11
   time: '2026-07-05T22:15:00.0000000+00:00'
   url: https://github.com/Monkestation/forky-station/pull/42
+- author: AitorLogedo
+  changes:
+  - message: Slimepeople can now passively slurp up puddles, clean dirt and footprints off the floor while barefoot, and soak stains off their own clothing and held items, feeding off what they absorb. They also stop leaving their own footprints while doing it. Toggle it with an action.
+    type: Add
+  id: 12
+  time: '2026-07-13T20:00:00.0000000+00:00'
+  url: https://github.com/Monkestation/forky-station/pull/24
+- author: UnidentifiedSubstance
+  changes:
+  - message: most missing spaces and spelling mistakes in rules. most....
+    type: Fix
+  id: 13
+  time: '2026-07-13T20:00:00.0000000+00:00'
+  url: https://github.com/Monkestation/forky-station/pull/45
 Order: 1
