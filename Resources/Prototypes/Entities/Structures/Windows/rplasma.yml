@@ -5,9 +5,9 @@
   components:
   - type: Sprite
     drawdepth: WallTops
-    sprite: Structures/Windows/reinforced_plasma_window.rsi
+    sprite: _Monkestation/Structures/Windows/reinforced_plasma_window.rsi # monkestation edit ; window sprites
   - type: Icon
-    sprite: Structures/Windows/reinforced_plasma_window.rsi
+    sprite: _Monkestation/Structures/Windows/reinforced_plasma_window.rsi # monkestation edit ; window sprites
   - type: Damageable
     damageModifierSet: RGlass
   - type: Injurable
@@ -111,7 +111,7 @@
   components:
   - type: Sprite
     drawdepth: WallTops
-    sprite: Structures/Windows/reinforced_plasma_diagonal.rsi
+    sprite: _Monkestation/Structures/Windows/reinforced_plasma_diagonal.rsi # monkestation edit ; window sprites
     state: state0
   - type: Tag
     tags:
@@ -122,7 +122,7 @@
     key: windows
     base: state
   - type: Icon
-    sprite: Structures/Windows/reinforced_plasma_diagonal.rsi
+    sprite: _Monkestation/Structures/Windows/reinforced_plasma_diagonal.rsi # monkestation edit ; window sprites
     state: state0
   - type: Fixtures
     fixtures:

@@ -5,9 +5,9 @@
   components:
   - type: Sprite
     drawdepth: WallTops
-    sprite: Structures/Windows/uranium_window.rsi
+    sprite: _Monkestation/Structures/Windows/uranium_window.rsi # monkestation edit ; window sprites
   - type: Icon
-    sprite: Structures/Windows/uranium_window.rsi
+    sprite: _Monkestation/Structures/Windows/uranium_window.rsi # monkestation edit ; window sprites
     state: full
   - type: Damageable
     damageModifierSet: Glass
@@ -104,7 +104,7 @@
   components:
   - type: Sprite
     drawdepth: WallTops
-    sprite: Structures/Windows/uranium_window_diagonal.rsi
+    sprite: _Monkestation/Structures/Windows/uranium_window_diagonal.rsi # monkestation edit ; window sprites
     state: state0
   - type: Tag
     tags:
@@ -115,7 +115,7 @@
     key: windows
     base: state
   - type: Icon
-    sprite: Structures/Windows/uranium_window_diagonal.rsi
+    sprite: _Monkestation/Structures/Windows/uranium_window_diagonal.rsi # monkestation edit ; window sprites
     state: state0
   - type: Fixtures
     fixtures:
