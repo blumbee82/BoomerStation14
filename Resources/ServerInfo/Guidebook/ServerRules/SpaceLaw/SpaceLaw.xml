@@ -580,12 +580,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#462947">
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Permabrig, Exile, Execution IF uncontainable
+        Permabrig, Execution IF uncontainable
       </Box>
     </ColorBox>
     <ColorBox Color="#3B2947">
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Permabrig, Execution, Exile
+        Permabrig, Execution
       </Box>
     </ColorBox>
  </Table>
@@ -830,4 +830,8 @@ Priority threats currently include:
  - Security should be careful to not charge this recklessly; suspicion alone is not enough. Attempted charges should be sentenced at the same level as the crime would be normally
 
  - [italic]Note that 402 Attempted Murder is its own separate charge and has special considerations for when it should be charged - see the [textlink="crime description" link="SpaceLawCrimeList"] for details.[/italic]
+<Box HorizontalAlignment="Center">
+  [bold][color=green]Glory to Nanotrasen[/bold][/color]
+</Box>
+
 </Document>
